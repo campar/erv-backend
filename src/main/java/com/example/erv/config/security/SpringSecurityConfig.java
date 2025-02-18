@@ -29,8 +29,8 @@ public class SpringSecurityConfig {
 	private String deviceUserName;
 	@Value("${device.password}")
 	private String devicePassword;
-	@Value("${frontend.address}")
-	private String frontendAddress;
+	@Value("${cors.allowed-origins}")
+	private String[] allowedOrigins;
 	private final UserService userService;
 	private final JwtFilter jwtFilter;
     private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
@@ -101,7 +101,7 @@ public class SpringSecurityConfig {
             @Override
             public void addCorsMappings(@NonNull CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:4200", "http://localhost", "http://192.168.45.100", "http://192.168.45.100:4200", "http://10.10.20.147", frontendAddress)
+                        .allowedOrigins(allowedOrigins)
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowCredentials(true);
             }
