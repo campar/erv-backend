@@ -36,3 +36,6 @@ build/
 
 ### ERV Logs ###
 logs/
+
+### Local environment ###
+.env
