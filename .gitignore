@@ -39,3 +39,5 @@ logs/
 
 ### Local environment ###
 .env
+*.p12
+*.jks
