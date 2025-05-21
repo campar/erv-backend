@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperreports-fonts>
+    <fontFamily name="Arial">
+        <normal><![CDATA[fonts/arial/ARIAL.ttf]]></normal>
+        <bold><![CDATA[fonts/arial/ARIALBD.ttf]]></bold>
+        <italic><![CDATA[fonts/arial/ARIALI.ttf]]></italic>
+        <boldItalic><![CDATA[fonts/arial/ARIALBI.ttf]]></boldItalic>
+        <pdfEncoding><![CDATA[Cp1250]]></pdfEncoding>
+        <pdfEmbedded><![CDATA[true]]></pdfEmbedded>
+    </fontFamily>
+</jasperreports-fonts>
