@@ -1,0 +1,44 @@
+<!-- Created with Jaspersoft Studio version 7.0.0.final using JasperReports Library version 7.0.0-b478feaa9aab4375eba71de77b4ca138ad2f62aa  -->
+<jasperReport name="PassStatisticsSubReport" language="java" pageWidth="230" pageHeight="842" columnWidth="230" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="99268e49-3867-4c0a-8f43-226aaf6828e4">
+	<style name="DefaultStyle" default="true" pdfEncoding="Cp1250" pdfEmbedded="true"/>
+	<query language="sql"><![CDATA[]]></query>
+	<field name="actionType" class="com.example.erv.model.enums.ActionType"/>
+	<field name="count" class="java.lang.Long"/>
+	<variable name="total" calculation="Sum" class="java.lang.Integer">
+		<expression><![CDATA[$F{count}]]></expression>
+	</variable>
+	<background splitType="Stretch"/>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<printWhenExpression><![CDATA[$F{count} > 0]]></printWhenExpression>
+			<element kind="textField" uuid="f63b3799-bcb9-4601-a877-4e6f1f09e232" x="0" y="0" width="150" height="20" vTextAlign="Middle">
+				<paragraph leftIndent="5"/>
+				<expression><![CDATA[$F{count} == 0 ? null : $F{actionType}.getCode()]]></expression>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+			</element>
+			<element kind="textField" uuid="e9177fcd-b1a3-4eb8-886d-d1fbad3a25ff" x="150" y="0" width="80" height="20" hTextAlign="Right" vTextAlign="Middle">
+				<paragraph rightIndent="5"/>
+				<expression><![CDATA[$F{count} == 0 ? null : $F{count}]]></expression>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+			</element>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</detail>
+	<columnFooter height="20">
+		<element kind="textField" uuid="31aeaadf-a44a-4c18-84a4-ab9a07971153" x="150" y="0" width="80" height="20" bold="true" hTextAlign="Right" vTextAlign="Middle">
+			<paragraph rightIndent="5"/>
+			<expression><![CDATA[($V{total} == null || $V{total} == 0) ? null : $V{total}]]></expression>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+		</element>
+		<element kind="textField" uuid="6c4470ca-764d-425e-be79-c8febaed360c" x="0" y="0" width="150" height="20" bold="true" vTextAlign="Middle">
+			<paragraph leftIndent="5"/>
+			<expression><![CDATA[($V{total} == null || $V{total} == 0) ? null : "Ukupno"]]></expression>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+		</element>
+	</columnFooter>
+	<summary/>
+</jasperReport>

@@ -1,0 +1,124 @@
+<!-- Created with Jaspersoft Studio version 7.0.0.final using JasperReports Library version 7.0.0-b478feaa9aab4375eba71de77b4ca138ad2f62aa  -->
+<jasperReport name="PassStatistics" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e4c067d8-25f9-41cb-8bc4-56c7516725d5">
+	<style name="DefaultStyle" default="true" pdfEncoding="Cp1250" pdfEmbedded="true"/>
+	<parameter name="dateFrom" class="java.time.ZonedDateTime"/>
+	<parameter name="dateTo" class="java.time.ZonedDateTime"/>
+	<parameter name="subreportParameter" class="net.sf.jasperreports.engine.JasperReport"/>
+	<query language="sql"><![CDATA[]]></query>
+	<field name="total" class="java.lang.Long"/>
+	<field name="device" class="com.example.erv.model.Device"/>
+	<field name="checkIns" class="java.util.List"/>
+	<variable name="rbr" class="java.lang.String">
+		<expression><![CDATA[$V{REPORT_COUNT}+"."]]></expression>
+	</variable>
+	<background splitType="Stretch"/>
+	<title height="70" splitType="Stretch">
+		<element kind="textField" uuid="2723fb42-d410-47bd-a711-9a6e1b1ca71a" x="-20" y="10" width="842" height="30" fontSize="18.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<expression><![CDATA["Statistika prolaza - " + $P{dateFrom}.format( java.time.format.DateTimeFormatter.ofPattern("dd.MM.yyyy")) + " do " + $P{dateTo}.format( java.time.format.DateTimeFormatter.ofPattern("dd.MM.yyyy"))]]></expression>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader height="30" splitType="Stretch">
+		<element kind="staticText" uuid="cbda30a2-3a71-4d45-b21c-a2a1349ed2c6" x="10" y="0" width="40" height="30" fontSize="12.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[R.br.]]></text>
+			<box>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="d1e19de9-ce81-4907-b17b-7e833519f98b" x="550" y="0" width="230" height="30" fontSize="12.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Prolazak]]></text>
+			<box>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="344afd87-51ae-44c3-a69a-6b2c71da3af1" x="50" y="0" width="500" height="30" fontSize="12.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Organizaciona jedinica]]></text>
+			<box>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="50" splitType="Prevent">
+			<printWhenExpression><![CDATA[$F{device} != null]]></printWhenExpression>
+			<element kind="textField" uuid="a36e1b7e-8956-460f-8447-b76228153a20" stretchType="ContainerHeight" x="10" y="0" width="40" height="50" textAdjust="StretchHeight" bold="true" hTextAlign="Center" vTextAlign="Top">
+				<paragraph leftIndent="5" spacingBefore="2" spacingAfter="2"/>
+				<expression><![CDATA[$V{REPORT_COUNT}]]></expression>
+				<property name="com.jaspersoft.studio.unit.firstLineIndent" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				<property name="com.jaspersoft.studio.unit.spacingBefore" value="px"/>
+				<property name="com.jaspersoft.studio.unit.spacingAfter" value="px"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="75a5963f-54fa-4509-98f8-a30a5b9a451a" stretchType="ContainerHeight" x="50" y="0" width="500" height="50" textAdjust="StretchHeight" hTextAlign="Left" vTextAlign="Middle">
+				<paragraph leftIndent="5" spacingBefore="2" spacingAfter="2"/>
+				<expression><![CDATA[$F{device}.getCode() + "\n" + ($F{device}.getLocation() == null ? "" : ($F{device}.getLocation().getName() +(($F{device}.getLocation().getAddress() == null)  ? "" : ",  " + $F{device}.getLocation().getAddress())))]]></expression>
+				<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				<property name="com.jaspersoft.studio.unit.spacingBefore" value="px"/>
+				<property name="com.jaspersoft.studio.unit.spacingAfter" value="px"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="frame" uuid="4d61c4f7-77e7-4426-af60-51424e8a8652" x="550" y="0" width="230" height="50">
+				<element kind="subreport" uuid="d0f2d125-fe5d-430f-8219-53b32a59d81f" x="0" y="0" width="230" height="50">
+					<printWhenExpression><![CDATA[!$F{checkIns}.isEmpty()]]></printWhenExpression>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{checkIns})]]></dataSourceExpression>
+					<expression><![CDATA[$P{subreportParameter}]]></expression>
+				</element>
+				<element kind="textField" uuid="89b10d08-2934-4bdc-8254-55c9a1aba8c4" stretchType="ContainerHeight" x="0" y="0" width="230" height="50" textAdjust="StretchHeight" hTextAlign="Left" vTextAlign="Middle">
+					<printWhenExpression><![CDATA[$F{checkIns}.isEmpty()]]></printWhenExpression>
+					<paragraph leftIndent="5" spacingBefore="5" spacingAfter="5"/>
+					<expression><![CDATA["Nema rezultata"]]></expression>
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+					<property name="com.jaspersoft.studio.unit.spacingBefore" value="px"/>
+					<property name="com.jaspersoft.studio.unit.spacingAfter" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+				</element>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="26" splitType="Stretch">
+		<element kind="textField" uuid="7eac6103-a17e-4ce4-8560-2bedf9af88ad" x="680" y="10" width="50" height="16" hTextAlign="Right">
+			<expression><![CDATA["Strana " + $V{PAGE_NUMBER}]]></expression>
+		</element>
+		<element kind="textField" uuid="6cddba66-4c77-4b0b-bec7-aaa76a1539fb" x="730" y="10" width="50" height="16" evaluationTime="Report" hTextAlign="Left">
+			<expression><![CDATA[" od " + $V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+</jasperReport>
