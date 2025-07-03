@@ -17,6 +17,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -60,6 +61,12 @@ public class DataSeeder implements CommandLineRunner {
     private final ShiftService shiftService;
     private static final Logger logger = LogManager.getLogger(DataSeeder.class);
 
+    @Value("${app.seed-demo-data:false}")
+    private boolean seedDemoData;
+
+    @Value("${app.seed-demo-timetables:false}")
+    private boolean seedDemoTimetables;
+
     public DataSeeder(UserService userService, PermissionService permissionService, RoleService roleService, PasswordEncoder passwordEncoder, DeviceService deviceService,
                       DepartmentUnitService departmentUnitService, LocationService locationService, CardService cardService, TimetableService timetableService, ShiftService shiftService) {
         super();
@@ -79,10 +86,9 @@ public class DataSeeder implements CommandLineRunner {
 	}
     @Override
     public void run(String... args) throws Exception {
-//    	generateData();
-//    	Role r = roleService.findById(1l).get();
-//    	r.setPermissionList(permissionService.findAll());
-//    	roleService.save(r);
+        if (seedDemoData && userService.findAll().isEmpty()) {
+            generateData();
+        }
     }
     
     private void generateData() throws Exception {
@@ -115,7 +121,9 @@ public class DataSeeder implements CommandLineRunner {
         createDepartmentUnits();
         createLocations();
         createDevices(); 
-//        createTimetables(users);
+        if (seedDemoTimetables) {
+            createTimetables(users);
+        }
         user.setDepartmentUnit(departmentUnitService.findById(1L).get());
         userService.save(user);
         logger.info("Data loaded successfully!");
