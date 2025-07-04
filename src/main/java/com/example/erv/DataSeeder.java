@@ -118,7 +118,6 @@ public class DataSeeder implements CommandLineRunner {
         List<User> users = createUsers(shifts);
         Location location = createLocation("Test lokacija", "Poslovna 15");
         createDevices(location);
-        createDepartmentUnits();
         createLocations();
         createDevices(); 
         if (seedDemoTimetables) {
