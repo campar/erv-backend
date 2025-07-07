@@ -82,8 +82,6 @@ public class DataSeeder implements CommandLineRunner {
         this.timetableService = timetableService;
     }
 
-    public static void main(String[] args) {
-	}
     @Override
     public void run(String... args) throws Exception {
         if (seedDemoData && userService.findAll().isEmpty()) {
@@ -142,20 +140,6 @@ public class DataSeeder implements CommandLineRunner {
         int businessNoReturnPercent = 50;
 
         List<Thread> threads = Arrays.asList(
-//            createTimetableThread(users, devices, pausePercent, businessPercent, businessNoReturnPercent, "2021-01-01", "2021-12-31"),
-//            createTimetableThread(users, devices, pausePercent, businessPercent, businessNoReturnPercent, "2022-01-01", "2022-12-31"),
-//            createTimetableThread(users, devices, pausePercent, businessPercent, businessNoReturnPercent, "2023-01-01", "2023-12-31"),
-//            createTimetableThread(users, devices, pausePercent, businessPercent, businessNoReturnPercent, "2024-01-01", LocalDate.now().toString())
-//        		
-//        		createTimetableThread(users, devices, pausePercent, businessPercent, businessNoReturnPercent, "2021-01-01", "2021-06-30"),
-//        		createTimetableThread(users, devices, pausePercent, businessPercent, businessNoReturnPercent, "2021-07-01", "2021-12-31"),
-//                createTimetableThread(users, devices, pausePercent, businessPercent, businessNoReturnPercent, "2022-01-01", "2022-06-30"),
-//                createTimetableThread(users, devices, pausePercent, businessPercent, businessNoReturnPercent, "2022-07-01", "2022-12-31"),
-//                createTimetableThread(users, devices, pausePercent, businessPercent, businessNoReturnPercent, "2023-01-01", "2023-06-30"),
-//                createTimetableThread(users, devices, pausePercent, businessPercent, businessNoReturnPercent, "2023-07-01", "2023-12-31"),
-//                createTimetableThread(users, devices, pausePercent, businessPercent, businessNoReturnPercent, "2024-01-01", "2024-06-30"),
-//                createTimetableThread(users, devices, pausePercent, businessPercent, businessNoReturnPercent, "2024-07-01", "2024-12-31"),
-//                createTimetableThread(users, devices, pausePercent, businessPercent, businessNoReturnPercent, "2025-01-01", "2025-06-30")
         		createTimetableThread(users, devices, pausePercent, businessPercent, businessNoReturnPercent, "2024-01-01", "2024-02-28"),
         		createTimetableThread(users, devices, pausePercent, businessPercent, businessNoReturnPercent, "2024-03-01", "2024-04-30"),
         		createTimetableThread(users, devices, pausePercent, businessPercent, businessNoReturnPercent, "2024-05-01", "2024-06-30"),
@@ -165,7 +149,6 @@ public class DataSeeder implements CommandLineRunner {
         		createTimetableThread(users, devices, pausePercent, businessPercent, businessNoReturnPercent, "2025-01-01", "2025-02-28"),
         		createTimetableThread(users, devices, pausePercent, businessPercent, businessNoReturnPercent, "2025-03-01", "2025-04-30"),
         		createTimetableThread(users, devices, pausePercent, businessPercent, businessNoReturnPercent, "2025-05-01", "2025-06-30")
-//                createTimetableThread(users, devices, pausePercent, businessPercent, businessNoReturnPercent, "2025-07-01", "2025-12-31")
         );
 
         threads.forEach(Thread::start);
@@ -542,7 +525,6 @@ public class DataSeeder implements CommandLineRunner {
             deviceObj.setActive(true);
             deviceObj.setLocation(locationService.findById(Long.valueOf(deviceInfo[1])).get());
             deviceObj.setCode(deviceInfo[2].replace("'", ""));
-//            deviceObj.setHardwareIdentifier(deviceInfo[3].replace("'", ""));
             deviceObj.setDescription(deviceInfo[4].replace("'", ""));
             deviceService.save(deviceObj);
             deviceObj.setHardwareIdentifier(deviceObj.getId().toString());
