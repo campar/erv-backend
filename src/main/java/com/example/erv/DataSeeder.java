@@ -84,7 +84,7 @@ public class DataSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        if (seedDemoData && userService.findAll().isEmpty()) {
+        if (seedDemoData && userService.findByUsername("admin") == null) {
             generateData();
         }
     }
