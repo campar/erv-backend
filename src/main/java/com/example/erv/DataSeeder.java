@@ -447,7 +447,7 @@ public class DataSeeder implements CommandLineRunner {
         createLocation("Pogon 10", "Proizvodna 4");
         createLocation("Pogon 13", "Radionička 9");
         createLocation("Magacin", "Glavna 16");
-        createLocation("Servis", "");
+        createLocation("Servis", "Servisna 4");
     }
 
     private Location createLocation(String name, String street) {
@@ -537,8 +537,8 @@ public class DataSeeder implements CommandLineRunner {
         User user = new User();
         user.setFirstName(firstName);
         user.setLastName(lastName);
-        user.setParentName(parentName);
-        user.setRecordNumber(recordNumber);
+        user.setParentName(blankToNull(parentName));
+        user.setRecordNumber(blankToNull(recordNumber));
         user.setJobTitle(jobTitle);
         user.setUserType(UserType.EMPLOYEE);
         DepartmentUnit departmentUnit = departmentUnitService.findById(ThreadLocalRandom.current().nextLong(1, 86)).orElse(null);
@@ -560,4 +560,7 @@ public class DataSeeder implements CommandLineRunner {
         return user;
     }
 
+    private static String blankToNull(String value) {
+        return value == null || value.isBlank() || value.equals("NULL") ? null : value;
+    }
 }

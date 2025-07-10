@@ -108,7 +108,7 @@ INSERT INTO public.location (id, soft_deleted, address, city, description, name,
 (11, false, 'Proizvodna 4',                 'Belgrade', 'Test description', 'Pogon 10',           '011 123 456'),
 (12, false, 'Radionička 9',                 'Belgrade', 'Test description', 'Pogon 13',           '011 123 456'),
 (13, false, 'Glavna 16',                    'Belgrade', 'Test description', 'Magacin',            '011 123 456'),
-(14, false, '',                             'Belgrade', 'Test description', 'Servis',             '011 123 456');
+(14, false, 'Servisna 4',                   'Belgrade', 'Test description', 'Servis',             '011 123 456');
 
 
 -- ========== SHIFTS ==========
