@@ -1,0 +1,67 @@
+variables:
+  DOCKER_IMAGE: "example/erv-backend"
+  DOCKER_TAG: "${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHORT_SHA}"
+
+stages:
+  - build
+  - docker-build
+
+cache:
+  paths:
+    - .m2/repository
+
+build_spring_boot:
+  stage: build
+  image: maven:3.9.6-eclipse-temurin-17
+  when: manual
+  tags:
+    - docker
+  script:
+    - mvn clean package -DskipTests
+    - export APP_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+    - echo "Extracted version - $APP_VERSION"
+    - echo "APP_VERSION=$APP_VERSION" >> build.env
+  artifacts:
+    paths:
+      - target/*.jar
+      - build.env
+    expire_in: 1 hour
+
+.docker_build:
+  stage: docker-build
+  when: manual
+  tags:
+    - shell
+  before_script:
+    - echo $DB_URL
+    - echo $DB_USER_NAME
+    - sed -i -e "s|__DB_URL__|$DB_URL|g"
+      -e "s|__DB_USER_NAME__|$DB_USER_NAME|g"
+      -e "s|__DB_PASSWORD__|$DB_PASSWORD|g"
+      -e "s|__JWT_SECRET__|$JWT_SECRET|g"
+      -e "s|__FRONTEND_ADDRESS__|$FRONTEND_ADDRESS|g"
+      -e "s|__DEVICE_USER_NAME__|$DEVICE_USER_NAME|g"
+      -e "s|__DEVICE_PASSWORD__|$DEVICE_PASSWORD|g" deployment/application.properties
+    - cat deployment/application.properties
+  script:
+    - source build.env
+    - cp deployment/application.properties .
+    - docker login -u "$DOCKER_HUB_USER" -p "$DOCKER_HUB_PASSWORD"
+    - docker build -t $DOCKER_IMAGE:$ENVIRONMENT-$APP_VERSION-$DOCKER_TAG -f deployment/Dockerfile .
+    - docker push $DOCKER_IMAGE:$ENVIRONMENT-$APP_VERSION-$DOCKER_TAG
+  needs:
+    - build_spring_boot
+
+test:
+  extends: .docker_build
+  variables:
+    ENVIRONMENT: "test"
+  environment:
+    name: test
+
+prod:
+  extends: .docker_build
+  variables:
+    ENVIRONMENT: "prod"
+  environment:
+    name: prod
